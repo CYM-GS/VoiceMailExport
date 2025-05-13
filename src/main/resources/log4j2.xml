@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console Appender: Only INFO and above -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss}] [%t] %-5level %C{1}.%M(%L): %msg%n%throwable" />
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+
+        <!-- Rolling File Appender: DEBUG and above, rotates daily, retains 7 days -->
+        <RollingFile name="FileLogger"
+                     fileName="logs/debug-log.log"
+                     filePattern="logs/archive/debug-log-%d{dd-MM-yyyy}.log.gz">
+            <PatternLayout pattern="[%d{dd-MM-yyyy HH:mm:ss}] [%t] %-5level %C{1}.%M(%L): %msg%n%throwable"/>
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="7"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileLogger"/>
+        </Root>
+    </Loggers>
+</Configuration>

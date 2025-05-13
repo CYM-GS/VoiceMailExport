@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'de.cymos'
+version = '1.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Mail
+    implementation 'javax.mail:mail:1.4.7'
+
+    // Data Export to Excel
+    implementation 'org.apache.poi:poi:5.4.1'
+    implementation 'org.apache.poi:poi-ooxml:5.4.1'
+
+    // Logging
+    implementation("org.apache.logging.log4j:log4j-api:2.24.1")
+    implementation("org.apache.logging.log4j:log4j-core:2.24.1")
+
+    // Optional SLF4J bridge if other libraries use slf4j
+    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.24.1")
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'de.cymos.voicemailexport.Main'
+        )
+    }
+}
